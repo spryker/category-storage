@@ -16,7 +16,7 @@ use Spryker\Zed\SynchronizationExtension\Dependency\Plugin\SynchronizationDataQu
  * @method \Spryker\Zed\CategoryStorage\Business\CategoryStorageFacadeInterface getFacade()
  * @method \Spryker\Zed\CategoryStorage\Communication\CategoryStorageCommunicationFactory getFactory()
  */
-class CategoryTreeSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataQueryContainerPluginInterface
+class CategoryNodeSynchronizationDataPlugin extends AbstractPlugin implements SynchronizationDataQueryContainerPluginInterface
 {
     /**
      * Specification:
@@ -28,7 +28,7 @@ class CategoryTreeSynchronizationDataPlugin extends AbstractPlugin implements Sy
      */
     public function getResourceName()
     {
-        return CategoryStorageConstants::CATEGORY_TREE_RESOURCE_NAME;
+        return CategoryStorageConstants::CATEGORY_NODE_RESOURCE_NAME;
     }
 
     /**
@@ -57,7 +57,13 @@ class CategoryTreeSynchronizationDataPlugin extends AbstractPlugin implements Sy
      */
     public function queryData($ids = [])
     {
-        return $this->getQueryContainer()->queryCategoryStorage();
+        $query = $this->getQueryContainer()->queryCategoryNodeStorageByIds($ids);
+
+        if (empty($ids)) {
+            $query->clear();
+        }
+
+        return $query;
     }
 
     /**
@@ -96,6 +102,6 @@ class CategoryTreeSynchronizationDataPlugin extends AbstractPlugin implements Sy
      */
     public function getSynchronizationQueuePoolName()
     {
-        return $this->getFactory()->getConfig()->getCategoryTreeSynchronizationPoolName();
+        return $this->getFactory()->getConfig()->getCategoryNodeSynchronizationPoolName();
     }
 }
