@@ -7,24 +7,23 @@
 
 namespace Spryker\Zed\CategoryStorage\Communication\Plugin\Event\Listener;
 
-use Spryker\Zed\Category\Dependency\CategoryEvents;
 use Spryker\Zed\Event\Dependency\Plugin\EventBulkHandlerInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
 
 /**
- * @deprecated Use `\Spryker\Zed\CategoryStorage\Communication\Plugin\Event\Listener\CategoryNodeCategoryStoragePublishListener` and `\Spryker\Zed\CategoryStorage\Communication\Plugin\Event\Listener\CategoryNodeCategoryStorageUnpublishListener` instead.
- *
  * @method \Spryker\Zed\CategoryStorage\Persistence\CategoryStorageQueryContainerInterface getQueryContainer()
  * @method \Spryker\Zed\CategoryStorage\Communication\CategoryStorageCommunicationFactory getFactory()
  * @method \Spryker\Zed\CategoryStorage\Business\CategoryStorageFacadeInterface getFacade()
  * @method \Spryker\Zed\CategoryStorage\CategoryStorageConfig getConfig()
  */
-class CategoryNodeCategoryStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
+class CategoryTreeStorageUnpublishListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
     use DatabaseTransactionHandlerTrait;
 
     /**
+     * {@inheritdoc}
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\EventEntityTransfer[] $eventTransfers
@@ -35,15 +34,7 @@ class CategoryNodeCategoryStorageListener extends AbstractPlugin implements Even
     public function handleBulk(array $eventTransfers, $eventName)
     {
         $this->preventTransaction();
-        $categoryIds = $this->getFactory()->getEventBehaviorFacade()->getEventTransferIds($eventTransfers);
-        $categoryNodeIds = $this->getQueryContainer()->queryCategoryNodeIdsByCategoryIds($categoryIds)->find()->getData();
 
-        if ($eventName === CategoryEvents::ENTITY_SPY_CATEGORY_DELETE) {
-            $this->getFacade()->unpublish($categoryNodeIds);
-
-            return;
-        }
-
-        $this->getFacade()->publish($categoryNodeIds);
+        $this->getFacade()->unpublishCategoryTree();
     }
 }
