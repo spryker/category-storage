@@ -8,8 +8,11 @@
 namespace SprykerTest\Zed\CategoryStorage;
 
 use Codeception\Actor;
+use Orm\Zed\CategoryStorage\Persistence\SpyCategoryTreeStorageQuery;
 
 /**
+ * Inherited Methods
+ *
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -19,10 +22,20 @@ use Codeception\Actor;
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
+ * @method void pause()
+ * @method \Spryker\Zed\CategoryStorage\Business\CategoryStorageFacadeInterface getFacade()
  *
  * @SuppressWarnings(PHPMD)
  */
-class CategoryStorageCommunicationTester extends Actor
+class CategoryStorageBusinessTester extends Actor
 {
-    use _generated\CategoryStorageCommunicationTesterActions;
+    use _generated\CategoryStorageBusinessTesterActions;
+
+    /**
+     * @return void
+     */
+    public function ensureCategoryTreeStorageDatabaseTableIsEmpty(): void
+    {
+        SpyCategoryTreeStorageQuery::create()->deleteAll();
+    }
 }
