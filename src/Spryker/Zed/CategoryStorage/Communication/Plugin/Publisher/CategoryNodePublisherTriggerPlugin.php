@@ -7,9 +7,9 @@
 
 namespace Spryker\Zed\CategoryStorage\Communication\Plugin\Publisher;
 
+use Generated\Shared\Transfer\FilterTransfer;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryNodeTableMap;
 use Spryker\Shared\CategoryStorage\CategoryStorageConstants;
-use Spryker\Zed\Category\Dependency\CategoryEvents;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\PublisherExtension\Dependency\Plugin\PublisherTriggerPluginInterface;
 
@@ -30,11 +30,17 @@ class CategoryNodePublisherTriggerPlugin extends AbstractPlugin implements Publi
      * @param int $offset
      * @param int $limit
      *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer[]
+     * @return \Generated\Shared\Transfer\NodeTransfer[]
      */
     public function getData(int $offset, int $limit): array
     {
-        return $this->getFacade()->findFilteredCategoryNodeEnteties($offset, $limit);
+        $filterTransfer = $this->createFilterTransfer($offset, $limit);
+
+        return $this->getFactory()
+            ->getCategoryFacade()
+            ->findCategoryNodesByFilter($filterTransfer)
+            ->getNodes()
+            ->getArrayCopy();
     }
 
     /**
@@ -58,7 +64,7 @@ class CategoryNodePublisherTriggerPlugin extends AbstractPlugin implements Publi
      */
     public function getEventName(): string
     {
-        return CategoryEvents::CATEGORY_NODE_PUBLISH;
+        return CategoryStorageConstants::CATEGORY_NODE_PUBLISH;
     }
 
     /**
@@ -71,5 +77,18 @@ class CategoryNodePublisherTriggerPlugin extends AbstractPlugin implements Publi
     public function getIdColumnName(): ?string
     {
         return SpyCategoryNodeTableMap::COL_ID_CATEGORY_NODE;
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return \Generated\Shared\Transfer\FilterTransfer
+     */
+    protected function createFilterTransfer(int $offset, int $limit): FilterTransfer
+    {
+        return (new FilterTransfer())
+            ->setOffset($offset)
+            ->setLimit($limit);
     }
 }
