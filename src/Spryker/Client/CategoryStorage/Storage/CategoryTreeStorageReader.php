@@ -73,11 +73,9 @@ class CategoryTreeStorageReader implements CategoryTreeStorageReaderInterface
     protected function getStorageData(string $localeName, string $storeName): ?array
     {
         if (CategoryStorageConfig::isCollectorCompatibilityMode()) {
-            $clientLocatorClass = Locator::class;
-            /** @var \Generated\Zed\Ide\AutoCompletion&\Spryker\Shared\Kernel\LocatorLocatorInterface $locator */
-            $locator = $clientLocatorClass::getInstance();
-            $categoryExporterClient = $locator->categoryExporter()->client();
-
+            $clientLocatorClassName = Locator::class;
+            /** @var \Spryker\Client\CategoryExporter\CategoryExporterClientInterface $categoryExporterClient */
+            $categoryExporterClient = $clientLocatorClassName::getInstance()->categoryExporter()->client();
             $collectorData = $categoryExporterClient->getNavigationCategories($localeName);
             $collectorCategories = [
                 'category_nodes_storage' => $this->filterCollectorDataRecursive($collectorData),
