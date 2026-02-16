@@ -59,7 +59,7 @@ class ProductCategoryStorageExpander implements ProductCategoryStorageExpanderIn
     }
 
     /**
-     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param array<int, \Generated\Shared\Transfer\CategoryNodeStorageTransfer> $categoryNodeStorageTransfers
      *
      * @return void
@@ -100,9 +100,9 @@ class ProductCategoryStorageExpander implements ProductCategoryStorageExpanderIn
     }
 
     /**
-     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      *
-     * @return list<int>
+     * @return array<int>
      */
     protected function extractCategoryNodeIdsFromProductCategoryStorageTransfers(
         array $productCategoryStorageTransfers

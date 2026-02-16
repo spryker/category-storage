@@ -324,7 +324,7 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
     }
 
     /**
-     * @param list<\Generated\Shared\Transfer\CategoryNodeStorageTransfer> $categoryNodeStorageTransfers
+     * @param array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer> $categoryNodeStorageTransfers
      *
      * @return array<int, \Generated\Shared\Transfer\CategoryNodeStorageTransfer>
      */
