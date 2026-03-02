@@ -32,10 +32,5 @@ interface CategoryNodeStorageWriterInterface
      */
     public function writeCategoryNodeStorageCollectionByCategoryNodeEvents(array $eventEntityTransfers): void;
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return void
-     */
     public function writeCategoryNodeStorageCollectionByCategoryNodeCriteria(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): void;
 }

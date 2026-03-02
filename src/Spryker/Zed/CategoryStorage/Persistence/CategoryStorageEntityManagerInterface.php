@@ -12,13 +12,6 @@ use Generated\Shared\Transfer\CategoryTreeStorageTransfer;
 
 interface CategoryStorageEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer $categoryNodeStorageTransfer
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return void
-     */
     public function saveCategoryNodeStorageForStoreAndLocale(
         CategoryNodeStorageTransfer $categoryNodeStorageTransfer,
         string $storeName,
@@ -41,15 +34,7 @@ interface CategoryStorageEntityManagerInterface
      */
     public function deleteCategoryNodeStorageByCategoryNodeIds(array $categoryNodeIds): void;
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTreeStorageTransfer $categoryTreeStorageTransfer
-     *
-     * @return void
-     */
     public function saveCategoryTreeStorage(CategoryTreeStorageTransfer $categoryTreeStorageTransfer): void;
 
-    /**
-     * @return void
-     */
     public function deleteCategoryTreeStorageCollection(): void;
 }

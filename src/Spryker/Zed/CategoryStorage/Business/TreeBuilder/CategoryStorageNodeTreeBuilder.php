@@ -23,10 +23,6 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
      */
     protected $categoryNodeStorageMapper;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\CategoryStorage\Business\Mapper\CategoryNodeStorageMapperInterface $categoryNodeStorageMapper
-     */
     public function __construct(
         CategoryStorageToStoreFacadeInterface $storeFacade,
         CategoryNodeStorageMapperInterface $categoryNodeStorageMapper
@@ -237,11 +233,6 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
         return $parentCategoryNodeStorageTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer $categoryNodeStorageTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer
-     */
     protected function cloneCategoryNodeStorageTransfer(CategoryNodeStorageTransfer $categoryNodeStorageTransfer): CategoryNodeStorageTransfer
     {
         return (new CategoryNodeStorageTransfer())->fromArray($categoryNodeStorageTransfer->toArray(), true);

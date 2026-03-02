@@ -52,9 +52,6 @@ class CategoryStorageBusinessTester extends Actor
      */
     protected const DEFAULT_CURRENCY = 'EUR';
 
-    /**
-     * @return void
-     */
     public function addDependencies(): void
     {
         $this->setDependency(QueueDependencyProvider::QUEUE_ADAPTERS, function (Container $container) {
@@ -69,20 +66,11 @@ class CategoryStorageBusinessTester extends Actor
         ]);
     }
 
-    /**
-     * @return void
-     */
     public function ensureCategoryTreeStorageDatabaseTableIsEmpty(): void
     {
         SpyCategoryTreeStorageQuery::create()->deleteAll();
     }
 
-    /**
-     * @param array $categoryData
-     * @param array $storeData
-     *
-     * @return \Generated\Shared\Transfer\CategoryTransfer
-     */
     public function haveLocalizedCategoryWithStoreRelation(array $categoryData = [], array $storeData = []): CategoryTransfer
     {
         $categoryTransfer = $this->haveLocalizedCategory($categoryData);
@@ -114,13 +102,6 @@ class CategoryStorageBusinessTester extends Actor
         return $this->createSpyCategoryTreeStorageQueryByLocalizedCategoryAndStoreName($categoryTransfer, $storeName)->find();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param string $storeName
-     * @param array $storageData
-     *
-     * @return void
-     */
     public function haveCategoryNodeStorageByLocalizedCategory(
         CategoryTransfer $categoryTransfer,
         string $storeName,
@@ -139,12 +120,6 @@ class CategoryStorageBusinessTester extends Actor
         $spyCategoryNodeStorageEntity->save();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param string $storeName
-     *
-     * @return \Orm\Zed\CategoryStorage\Persistence\SpyCategoryTreeStorage
-     */
     public function haveCategoryTreeStorageEntityByLocalizedCategoryAndStoreName(
         CategoryTransfer $categoryTransfer,
         string $storeName
@@ -161,12 +136,6 @@ class CategoryStorageBusinessTester extends Actor
         return $categoryTreeStorageEntity;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param string $storeName
-     *
-     * @return \Orm\Zed\CategoryStorage\Persistence\SpyCategoryNodeStorageQuery
-     */
     protected function createSpyCategoryNodeStorageQueryByLocalizedCategoryAndStoreName(
         CategoryTransfer $categoryTransfer,
         string $storeName
@@ -177,12 +146,6 @@ class CategoryStorageBusinessTester extends Actor
             ->filterByLocale($this->extractLocaleNameFromLocalizedCategory($categoryTransfer));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param string $storeName
-     *
-     * @return \Orm\Zed\CategoryStorage\Persistence\SpyCategoryTreeStorageQuery
-     */
     protected function createSpyCategoryTreeStorageQueryByLocalizedCategoryAndStoreName(
         CategoryTransfer $categoryTransfer,
         string $storeName
@@ -192,11 +155,6 @@ class CategoryStorageBusinessTester extends Actor
             ->filterByLocale($this->extractLocaleNameFromLocalizedCategory($categoryTransfer));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     *
-     * @return string
-     */
     protected function extractLocaleNameFromLocalizedCategory(CategoryTransfer $categoryTransfer): string
     {
         return $categoryTransfer->getLocalizedAttributes()
@@ -205,9 +163,6 @@ class CategoryStorageBusinessTester extends Actor
             ->getLocaleName();
     }
 
-    /**
-     * @return \Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface
-     */
     protected function createStoreStorageStoreExpanderPluginMock(): StoreExpanderPluginInterface
     {
         $storeTransfer = (new StoreTransfer())

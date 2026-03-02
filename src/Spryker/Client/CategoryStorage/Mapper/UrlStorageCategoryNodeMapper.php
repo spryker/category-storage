@@ -33,11 +33,6 @@ class UrlStorageCategoryNodeMapper implements UrlStorageCategoryNodeMapperInterf
      */
     protected $localeClient;
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Dependency\Service\CategoryStorageToSynchronizationServiceInterface $synchronizationService
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStoreClientInterface $storeClient
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToLocaleClientInterface $localeClient
-     */
     public function __construct(
         CategoryStorageToSynchronizationServiceInterface $synchronizationService,
         CategoryStorageToStoreClientInterface $storeClient,
@@ -76,13 +71,6 @@ class UrlStorageCategoryNodeMapper implements UrlStorageCategoryNodeMapperInterf
             ->setType(CategoryStorageConstants::CATEGORY_NODE_RESOURCE_NAME);
     }
 
-    /**
-     * @param int $idCategoryNode
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return string
-     */
     protected function generateKey(int $idCategoryNode, string $storeName, string $localeName): string
     {
         if (CategoryStorageConfig::isCollectorCompatibilityMode()) {

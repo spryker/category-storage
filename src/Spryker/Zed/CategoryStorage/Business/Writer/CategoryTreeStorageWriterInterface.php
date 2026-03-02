@@ -9,8 +9,5 @@ namespace Spryker\Zed\CategoryStorage\Business\Writer;
 
 interface CategoryTreeStorageWriterInterface
 {
-    /**
-     * @return void
-     */
     public function writeCategoryTreeStorageCollection(): void;
 }

@@ -38,11 +38,5 @@ interface CategoryStorageRepositoryInterface
      */
     public function getSitemapUrls(string $storeName): array;
 
-    /**
-     * @param string $storeName
-     * @param int $limit
-     *
-     * @return \Generator
-     */
     public function getSitemapGeneratorUrls(string $storeName, int $limit): Generator;
 }

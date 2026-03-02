@@ -16,13 +16,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class CategoryStorageEntityManager extends AbstractEntityManager implements CategoryStorageEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer $categoryNodeStorageTransfer
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return void
-     */
     public function saveCategoryNodeStorageForStoreAndLocale(
         CategoryNodeStorageTransfer $categoryNodeStorageTransfer,
         string $storeName,
@@ -80,11 +73,6 @@ class CategoryStorageEntityManager extends AbstractEntityManager implements Cate
         $categoryNodeStorageCollection->delete();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTreeStorageTransfer $categoryTreeStorageTransfer
-     *
-     * @return void
-     */
     public function saveCategoryTreeStorage(CategoryTreeStorageTransfer $categoryTreeStorageTransfer): void
     {
         $categoryTreeStorageEntity = $this->getFactory()
@@ -100,9 +88,6 @@ class CategoryStorageEntityManager extends AbstractEntityManager implements Cate
         $categoryTreeStorageEntity->save();
     }
 
-    /**
-     * @return void
-     */
     public function deleteCategoryTreeStorageCollection(): void
     {
         /** @var \Propel\Runtime\Collection\ObjectCollection $categoryTreeStorageCollection */

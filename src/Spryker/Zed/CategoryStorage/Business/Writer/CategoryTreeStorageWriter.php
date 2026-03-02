@@ -37,12 +37,6 @@ class CategoryTreeStorageWriter implements CategoryTreeStorageWriterInterface
      */
     protected $categoryNodeExtractor;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Persistence\CategoryStorageEntityManagerInterface $categoryStorageEntityManager
-     * @param \Spryker\Zed\CategoryStorage\Business\TreeBuilder\CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToCategoryFacadeInterface $categoryFacade
-     * @param \Spryker\Zed\CategoryStorage\Business\Extractor\CategoryNodeExtractorInterface $categoryNodeExtractor
-     */
     public function __construct(
         CategoryStorageEntityManagerInterface $categoryStorageEntityManager,
         CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder,
@@ -55,9 +49,6 @@ class CategoryTreeStorageWriter implements CategoryTreeStorageWriterInterface
         $this->categoryNodeExtractor = $categoryNodeExtractor;
     }
 
-    /**
-     * @return void
-     */
     public function writeCategoryTreeStorageCollection(): void
     {
         $categoryTrees = $this->getCategoryNodeStorageTransferTrees();

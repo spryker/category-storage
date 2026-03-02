@@ -25,22 +25,12 @@ class CategoryStorageToCategoryFacadeBridge implements CategoryStorageToCategory
         $this->categoryFacade = $categoryFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeCollectionTransfer
-     */
     public function getCategoryNodesWithRelativeNodes(
         CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
     ): NodeCollectionTransfer {
         return $this->categoryFacade->getCategoryNodesWithRelativeNodes($categoryNodeCriteriaTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeCollectionTransfer
-     */
     public function getCategoryNodes(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): NodeCollectionTransfer
     {
         return $this->categoryFacade->getCategoryNodes($categoryNodeCriteriaTransfer);

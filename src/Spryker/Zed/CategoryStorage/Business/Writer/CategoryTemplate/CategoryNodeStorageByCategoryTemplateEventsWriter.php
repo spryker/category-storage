@@ -23,10 +23,6 @@ class CategoryNodeStorageByCategoryTemplateEventsWriter implements CategoryNodeS
      */
     protected $categoryNodeStorageWriter;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade
-     * @param \Spryker\Zed\CategoryStorage\Business\Writer\CategoryNodeStorageWriterInterface $categoryNodeStorageWriter
-     */
     public function __construct(
         CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade,
         CategoryNodeStorageWriterInterface $categoryNodeStorageWriter

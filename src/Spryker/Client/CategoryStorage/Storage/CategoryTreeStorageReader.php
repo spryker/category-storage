@@ -34,10 +34,6 @@ class CategoryTreeStorageReader implements CategoryTreeStorageReaderInterface
      */
     protected static $storageKeyBuilder;
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStorageInterface $storageClient
-     * @param \Spryker\Client\CategoryStorage\Dependency\Service\CategoryStorageToSynchronizationServiceInterface $synchronizationService
-     */
     public function __construct(
         CategoryStorageToStorageInterface $storageClient,
         CategoryStorageToSynchronizationServiceInterface $synchronizationService
@@ -91,11 +87,6 @@ class CategoryTreeStorageReader implements CategoryTreeStorageReaderInterface
         return $this->storageClient->get($categoryTreeKey);
     }
 
-    /**
-     * @param array $categories
-     *
-     * @return array
-     */
     protected function filterCollectorDataRecursive(array $categories): array
     {
         $filteredCategories = [];
@@ -112,12 +103,6 @@ class CategoryTreeStorageReader implements CategoryTreeStorageReaderInterface
         return $filteredCategories;
     }
 
-    /**
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return string
-     */
     protected function generateKey(string $localeName, string $storeName): string
     {
         $synchronizationDataTransfer = (new SynchronizationDataTransfer())
@@ -127,9 +112,6 @@ class CategoryTreeStorageReader implements CategoryTreeStorageReaderInterface
         return $this->getStorageKeyBuilder()->generateKey($synchronizationDataTransfer);
     }
 
-    /**
-     * @return \Spryker\Service\Synchronization\Dependency\Plugin\SynchronizationKeyGeneratorPluginInterface
-     */
     protected function getStorageKeyBuilder(): SynchronizationKeyGeneratorPluginInterface
     {
         if (static::$storageKeyBuilder === null) {

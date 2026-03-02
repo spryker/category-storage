@@ -45,9 +45,6 @@ class CategoryStorageListenerTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -55,9 +52,6 @@ class CategoryStorageListenerTest extends Unit
         $this->tester->addDependencies();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryNodeStoragePublishListener(): void
     {
         SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->delete();
@@ -76,9 +70,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertCategoryNodeStorage($categoryStorageCount);
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryNodeStorageUnpublishListener(): void
     {
         $categoryNodeStorageListener = new CategoryNodeStorageUnpublishListener();
@@ -94,9 +85,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertSame(0, SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->count());
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryStorageListenerPublish(): void
     {
         SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->delete();
@@ -115,9 +103,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertCategoryNodeStorage($categoryStorageCount);
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryStorageListenerUnpublish(): void
     {
         $categoryNodeStorageListener = new CategoryNodeCategoryStorageUnpublishListener();
@@ -132,9 +117,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertSame(0, SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->count());
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryTemplateStoragePublishListener(): void
     {
         SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->delete();
@@ -154,9 +136,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertGreaterThan($beforeCount, $categoryStorageCount);
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryTemplateStorageUnpublishListener(): void
     {
         $categoryNodeStorageListener = new CategoryNodeCategoryTemplateStoragePublishListener();
@@ -171,9 +150,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertGreaterThan(0, SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->count());
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryAttributeStoragePublishListener(): void
     {
         SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->delete();
@@ -193,9 +169,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertCategoryNodeStorage($beforeCount);
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryAttributeStorageUnpublishListener(): void
     {
         $categoryNodeStorageListener = new CategoryNodeCategoryAttributeStorageUnpublishListener();
@@ -212,9 +185,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertSame(0, SpyCategoryNodeStorageQuery::create()->filterByFkCategoryNode(1)->count());
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryTreeStoragePublishListener(): void
     {
         SpyCategoryTreeStorageQuery::create()->deleteall();
@@ -227,9 +197,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertCategoryTreeStorage();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryTreeStorageUnpublishListener(): void
     {
         $categoryTreeStorageListener = new CategoryTreeStorageUnpublishListener();
@@ -241,9 +208,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertSame(0, $categoryStorageCount);
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\CategoryStorageFacade
-     */
     protected function getCategoryStorageFacade(): CategoryStorageFacade
     {
         $factory = new CategoryStorageBusinessFactory();
@@ -253,11 +217,6 @@ class CategoryStorageListenerTest extends Unit
         return $facade;
     }
 
-    /**
-     * @param int $beforeCount
-     *
-     * @return void
-     */
     protected function assertCategoryNodeStorage(int $beforeCount): void
     {
         $CategoryStorageCount = SpyCategoryNodeStorageQuery::create()->count();
@@ -275,9 +234,6 @@ class CategoryStorageListenerTest extends Unit
         $this->assertGreaterThanOrEqual(6, count($data['children']));
     }
 
-    /**
-     * @return void
-     */
     protected function assertCategoryTreeStorage(): void
     {
         $categoryStorageCount = SpyCategoryTreeStorageQuery::create()->count();

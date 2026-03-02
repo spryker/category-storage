@@ -49,9 +49,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CategoryStorageBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\CategoryNodeStorageWriterInterface
-     */
     public function createCategoryNodeStorageWriter(): CategoryNodeStorageWriterInterface
     {
         return new CategoryNodeStorageWriter(
@@ -64,9 +61,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\CategoryTreeStorageWriterInterface
-     */
     public function createCategoryTreeStorageWriter(): CategoryTreeStorageWriterInterface
     {
         return new CategoryTreeStorageWriter(
@@ -77,9 +71,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\TreeBuilder\CategoryStorageNodeTreeBuilderInterface
-     */
     public function createCategoryStorageNodeTreeBuilder(): CategoryStorageNodeTreeBuilderInterface
     {
         return new CategoryStorageNodeTreeBuilder(
@@ -88,9 +79,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Deleter\CategoryNodeStorageDeleterInterface
-     */
     public function createCategoryNodeStorageDeleter(): CategoryNodeStorageDeleterInterface
     {
         return new CategoryNodeStorageDeleter(
@@ -101,49 +89,31 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Mapper\CategoryNodeStorageMapperInterface
-     */
     public function createCategoryNodeStorageMapper(): CategoryNodeStorageMapperInterface
     {
         return new CategoryNodeStorageMapper($this->createCategoryLocalizedAttributesMapper());
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Mapper\CategoryLocalizedAttributesMapperInterface
-     */
     public function createCategoryLocalizedAttributesMapper(): CategoryLocalizedAttributesMapperInterface
     {
         return new CategoryLocalizedAttributesMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToCategoryFacadeInterface
-     */
     public function getCategoryFacade(): CategoryStorageToCategoryFacadeInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::FACADE_CATEGORY);
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToStoreFacadeInterface
-     */
     public function getStoreFacade(): CategoryStorageToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToEventBehaviorFacadeInterface
-     */
     public function getEventBehaviorFacade(): CategoryStorageToEventBehaviorFacadeInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::FACADE_EVENT_BEHAVIOR);
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\Category\CategoryNodeStorageByCategoryEventsWriterInterface
-     */
     public function createCategoryNodeStorageByCategoryEventsWriter(): CategoryNodeStorageByCategoryEventsWriterInterface
     {
         return new CategoryNodeStorageByCategoryEventsWriter(
@@ -152,9 +122,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\CategoryAttribute\CategoryNodeStorageByCategoryAttributeEventsWriterInterface
-     */
     public function createCategoryNodeStorageByCategoryAttributeEventsWriter(): CategoryNodeStorageByCategoryAttributeEventsWriterInterface
     {
         return new CategoryNodeStorageByCategoryAttributeEventsWriter(
@@ -163,9 +130,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\CategoryStore\CategoryNodeStorageByCategoryStoreEventsWriterInterface
-     */
     public function createCategoryNodeStorageByCategoryStoreEventsWriter(): CategoryNodeStorageByCategoryStoreEventsWriterInterface
     {
         return new CategoryNodeStorageByCategoryStoreEventsWriter(
@@ -174,9 +138,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Writer\CategoryTemplate\CategoryNodeStorageByCategoryTemplateEventsWriterInterface
-     */
     public function createCategoryNodeStorageByCategoryTemplateEventsWriter(): CategoryNodeStorageByCategoryTemplateEventsWriterInterface
     {
         return new CategoryNodeStorageByCategoryTemplateEventsWriter(
@@ -185,9 +146,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Deleter\Category\CategoryNodeStorageByCategoryEventsDeleterInterface
-     */
     public function createCategoryNodeStorageByCategoryEventsDeleter(): CategoryNodeStorageByCategoryEventsDeleterInterface
     {
         return new CategoryNodeStorageByCategoryEventsDeleter(
@@ -196,9 +154,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Deleter\CategoryAttribute\CategoryNodeStorageByCategoryAttributeEventsDeleterInterface
-     */
     public function createCategoryNodeStorageByCategoryAttributeEventsDeleter(): CategoryNodeStorageByCategoryAttributeEventsDeleterInterface
     {
         return new CategoryNodeStorageByCategoryAttributeEventsDeleter(
@@ -207,9 +162,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Deleter\CategoryTemplate\CategoryNodeStorageByCategoryTemplateEventsDeleterInterface
-     */
     public function createCategoryNodeStorageByCategoryTemplateEventsDeleter(): CategoryNodeStorageByCategoryTemplateEventsDeleterInterface
     {
         return new CategoryNodeStorageByCategoryTemplateEventsDeleter(
@@ -218,9 +170,6 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Business\Extractor\CategoryNodeExtractorInterface
-     */
     public function createCategoryNodeExtractor(): CategoryNodeExtractorInterface
     {
         return new CategoryNodeExtractor();

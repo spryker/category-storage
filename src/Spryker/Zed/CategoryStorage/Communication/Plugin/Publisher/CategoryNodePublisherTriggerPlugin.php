@@ -81,12 +81,6 @@ class CategoryNodePublisherTriggerPlugin extends AbstractPlugin implements Publi
         return SpyCategoryNodeTableMap::COL_ID_CATEGORY_NODE;
     }
 
-    /**
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer
-     */
     protected function createCategoryNodeCriteriaTransfer(int $offset, int $limit): CategoryNodeCriteriaTransfer
     {
         $filterTransfer = (new FilterTransfer())

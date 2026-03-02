@@ -95,12 +95,6 @@ class CategoryStorageRepository extends AbstractRepository implements CategorySt
         return array_merge(...$sitemapUrlTransfers);
     }
 
-    /**
-     * @param string $storeName
-     * @param int $limit
-     *
-     * @return \Generator
-     */
     public function getSitemapGeneratorUrls(string $storeName, int $limit): Generator
     {
         $offset = 0;
@@ -125,13 +119,6 @@ class CategoryStorageRepository extends AbstractRepository implements CategorySt
         yield [];
     }
 
-    /**
-     * @param int $offset
-     * @param int $limit
-     * @param string $orderByColumnName
-     *
-     * @return \Generated\Shared\Transfer\FilterTransfer
-     */
     protected function createFilterTransfer(int $offset, int $limit, string $orderByColumnName): FilterTransfer
     {
         return (new FilterTransfer())

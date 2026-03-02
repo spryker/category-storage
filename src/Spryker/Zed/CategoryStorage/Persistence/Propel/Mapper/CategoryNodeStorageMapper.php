@@ -41,9 +41,6 @@ class CategoryNodeStorageMapper
      */
     protected $utilSanitizeService;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Service\CategoryStorageToUtilSanitizeServiceInterface $utilSanitizeService
-     */
     public function __construct(CategoryStorageToUtilSanitizeServiceInterface $utilSanitizeService)
     {
         $this->utilSanitizeService = $utilSanitizeService;
@@ -69,12 +66,6 @@ class CategoryNodeStorageMapper
         return $categoryNodeStorageTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer $categoryNodeStorageTransfer
-     * @param \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryNodeStorage $categoryNodeStorageEntity
-     *
-     * @return \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryNodeStorage
-     */
     public function mapCategoryNodeStorageTransferToCategoryNodeStorageEntity(
         CategoryNodeStorageTransfer $categoryNodeStorageTransfer,
         SpyCategoryNodeStorage $categoryNodeStorageEntity
@@ -141,12 +132,6 @@ class CategoryNodeStorageMapper
         return $sitemapUrlTransfers;
     }
 
-    /**
-     * @param \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryNodeStorage $categoryNodeStorageEntity
-     * @param array $categoryNodeStorageData
-     *
-     * @return \Generated\Shared\Transfer\SitemapUrlTransfer
-     */
     protected function mapCategoryNodeStorageEntityToSitemapUrlTransfer(
         SpyCategoryNodeStorage $categoryNodeStorageEntity,
         array $categoryNodeStorageData
@@ -161,12 +146,6 @@ class CategoryNodeStorageMapper
         return $sitemapUrlTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryNodeStorage $categoryNodeStorageEntity
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer $categoryNodeStorageTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer
-     */
     protected function mapCategoryNodeStorageEntityToCategoryNodeStorageTransfer(
         SpyCategoryNodeStorage $categoryNodeStorageEntity,
         CategoryNodeStorageTransfer $categoryNodeStorageTransfer

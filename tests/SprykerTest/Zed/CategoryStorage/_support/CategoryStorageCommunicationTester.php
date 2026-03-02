@@ -42,9 +42,6 @@ class CategoryStorageCommunicationTester extends Actor
      */
     protected const DEFAULT_CURRENCY = 'EUR';
 
-    /**
-     * @return void
-     */
     public function addDependencies(): void
     {
         $this->setDependency(QueueDependencyProvider::QUEUE_ADAPTERS, function (Container $container) {
@@ -59,9 +56,6 @@ class CategoryStorageCommunicationTester extends Actor
         ]);
     }
 
-    /**
-     * @return \Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface
-     */
     protected function createStoreStorageStoreExpanderPluginMock(): StoreExpanderPluginInterface
     {
         $storeTransfer = (new StoreTransfer())

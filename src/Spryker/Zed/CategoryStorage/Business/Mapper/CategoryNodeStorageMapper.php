@@ -18,9 +18,6 @@ class CategoryNodeStorageMapper implements CategoryNodeStorageMapperInterface
      */
     protected $categoryLocalizedAttributesMapper;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Business\Mapper\CategoryLocalizedAttributesMapperInterface $categoryLocalizedAttributesMapper
-     */
     public function __construct(CategoryLocalizedAttributesMapperInterface $categoryLocalizedAttributesMapper)
     {
         $this->categoryLocalizedAttributesMapper = $categoryLocalizedAttributesMapper;
@@ -56,12 +53,6 @@ class CategoryNodeStorageMapper implements CategoryNodeStorageMapperInterface
         return $localizedCategoryNodeStorageTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param string $storeName
-     *
-     * @return bool
-     */
     protected function isCategoryHasStoreRelation(CategoryTransfer $categoryTransfer, string $storeName): bool
     {
         foreach ($categoryTransfer->getStoreRelationOrFail()->getStores() as $storeTransfer) {
@@ -73,12 +64,6 @@ class CategoryNodeStorageMapper implements CategoryNodeStorageMapperInterface
         return false;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     * @param \Generated\Shared\Transfer\NodeTransfer $nodeTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer
-     */
     protected function createCategoryNodeStorageTransfer(CategoryTransfer $categoryTransfer, NodeTransfer $nodeTransfer): CategoryNodeStorageTransfer
     {
         return (new CategoryNodeStorageTransfer())

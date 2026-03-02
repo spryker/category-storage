@@ -103,9 +103,6 @@ class CategoryStorageClientTest extends Unit
      */
     protected CategoryStorageClientTester $tester;
 
-    /**
-     * @return void
-     */
     public function testExpandProductCategoriesWithParentIdsWillNotExpandWhenParentIdsAreEmpty(): void
     {
         // Arrange
@@ -131,9 +128,6 @@ class CategoryStorageClientTest extends Unit
         $this->assertCount(0, $productCategoryStorageTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductCategoriesWithParentIdsThrowsExceptionWhenCategoryNodeIdIsMissing(): void
     {
         // Arrange
@@ -163,9 +157,6 @@ class CategoryStorageClientTest extends Unit
         $categoryStorageClientMock->expandProductCategoriesWithParentIds($productAbstractCategoryStorageCollectionTransfer, 'en_US', 'US');
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductCategoriesWithParentIdsThrowsExceptionWhenParentCategoryIdIsMissing(): void
     {
         // Arrange
@@ -202,9 +193,6 @@ class CategoryStorageClientTest extends Unit
         $categoryStorageClientMock->expandProductCategoriesWithParentIds($productAbstractCategoryStorageCollectionTransfer, 'en_US', 'US');
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductCategoriesWithParentIds(): void
     {
         // Arrange
@@ -243,9 +231,6 @@ class CategoryStorageClientTest extends Unit
         $this->assertContains(3, $productCategoryStorageTransfer->getParentCategoryIds());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCategoryNodeByIdsShouldFilterOutEmptyData(): void
     {
         // Arrange

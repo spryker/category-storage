@@ -24,9 +24,6 @@ class CategoryTreeStorageMapper
      */
     protected $utilSanitizeService;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Service\CategoryStorageToUtilSanitizeServiceInterface $utilSanitizeService
-     */
     public function __construct(CategoryStorageToUtilSanitizeServiceInterface $utilSanitizeService)
     {
         $this->utilSanitizeService = $utilSanitizeService;
@@ -52,12 +49,6 @@ class CategoryTreeStorageMapper
         return $categoryTreeStorageTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTreeStorageTransfer $categoryTreeStorageTransfer
-     * @param \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryTreeStorage $categoryTreeStorageEntity
-     *
-     * @return \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryTreeStorage
-     */
     public function mapCategoryTreeStorageTransferToCategoryTreeStorageEntity(
         CategoryTreeStorageTransfer $categoryTreeStorageTransfer,
         SpyCategoryTreeStorage $categoryTreeStorageEntity
@@ -74,12 +65,6 @@ class CategoryTreeStorageMapper
         return $categoryTreeStorageEntity;
     }
 
-    /**
-     * @param \Orm\Zed\CategoryStorage\Persistence\Base\SpyCategoryTreeStorage $categoryTreeStorageEntity
-     * @param \Generated\Shared\Transfer\CategoryTreeStorageTransfer $categoryTreeStorageTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryTreeStorageTransfer
-     */
     protected function mapCategoryTreeStorageEntityToCategoryTreeStorageTransfer(
         SpyCategoryTreeStorage $categoryTreeStorageEntity,
         CategoryTreeStorageTransfer $categoryTreeStorageTransfer

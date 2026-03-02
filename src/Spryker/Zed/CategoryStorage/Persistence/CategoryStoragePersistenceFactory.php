@@ -39,17 +39,11 @@ class CategoryStoragePersistenceFactory extends AbstractPersistenceFactory
         return SpyCategoryNodeStorageQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Persistence\Propel\Mapper\CategoryNodeStorageMapper
-     */
     public function createCategoryNodeStorageMapper(): CategoryNodeStorageMapper
     {
         return new CategoryNodeStorageMapper($this->getUtilSanitizeService());
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Persistence\Propel\Mapper\CategoryTreeStorageMapper
-     */
     public function createCategoryTreeStorageMapper(): CategoryTreeStorageMapper
     {
         return new CategoryTreeStorageMapper($this->getUtilSanitizeService());
@@ -63,9 +57,6 @@ class CategoryStoragePersistenceFactory extends AbstractPersistenceFactory
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::QUERY_CONTAINER_CATEGORY);
     }
 
-    /**
-     * @return \Spryker\Zed\CategoryStorage\Dependency\Service\CategoryStorageToUtilSanitizeServiceInterface
-     */
     public function getUtilSanitizeService(): CategoryStorageToUtilSanitizeServiceInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::SERVICE_UTIL_SANITIZE);

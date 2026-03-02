@@ -29,9 +29,6 @@ class CategoryTreePublisherTriggerPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,9 +36,6 @@ class CategoryTreePublisherTriggerPluginTest extends Unit
         $this->tester->addDependencies();
     }
 
-    /**
-     * @return void
-     */
     public function testGetDataReturnsNotEmptyArrayWithZeroOffset(): void
     {
         // Arrange
@@ -54,9 +48,6 @@ class CategoryTreePublisherTriggerPluginTest extends Unit
         $this->assertNotEmpty($resultData);
     }
 
-    /**
-     * @return void
-     */
     public function testGetDataReturnsEmptyArrayWithNotZeroOffset(): void
     {
         // Arrange

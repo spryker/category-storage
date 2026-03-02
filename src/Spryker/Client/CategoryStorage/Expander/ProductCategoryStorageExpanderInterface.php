@@ -11,13 +11,6 @@ use Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer;
 
 interface ProductCategoryStorageExpanderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer
-     */
     public function expandProductCategoriesWithParentIds(
         ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer,
         string $localeName,

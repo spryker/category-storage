@@ -46,9 +46,6 @@ class CategoryStorageClientTester extends Actor
      */
     protected const DEFAULT_CURRENCY = 'EUR';
 
-    /**
-     * @return void
-     */
     public function addDependencies(): void
     {
         $this->setDependency(ClientStoreDependencyProvider::PLUGINS_STORE_EXPANDER, [
@@ -80,17 +77,11 @@ class CategoryStorageClientTester extends Actor
         return $categoryStorageClient;
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\CategoryStorageClientInterface
-     */
     public function getClient(): CategoryStorageClientInterface
     {
         return $this->getLocator()->categoryStorage()->client();
     }
 
-    /**
-     * @return \Spryker\Client\StoreExtension\Dependency\Plugin\StoreExpanderPluginInterface
-     */
     protected function createStoreStorageStoreExpanderPluginMock(): StoreExpanderPluginInterface
     {
         $storeTransfer = (new StoreTransfer())

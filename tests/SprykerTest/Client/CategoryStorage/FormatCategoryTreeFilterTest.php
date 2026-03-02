@@ -135,9 +135,6 @@ class FormatCategoryTreeFilterTest extends Unit
      */
     protected CategoryStorageClientTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -145,9 +142,6 @@ class FormatCategoryTreeFilterTest extends Unit
         $this->tester->addDependencies();
     }
 
-    /**
-     * @return void
-     */
     public function testFormatCategoryTreeFilterFormatsCategoryTree(): void
     {
         // Arrange
@@ -190,9 +184,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatCategoryTreeFilterTryToFormatTreeWhenCategoryDocCountsAreEmpty(): void
     {
         // Arrange
@@ -218,9 +209,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatCategoryTreeFilterTryToFormatTreeWhenCategoryNodeStoragesAreEmpty(): void
     {
         // Arrange
@@ -244,9 +232,6 @@ class FormatCategoryTreeFilterTest extends Unit
         $this->assertEmpty($categoryNodeSearchResultTransfers, 'Expects empty collection in case empty category storage data.');
     }
 
-    /**
-     * @return void
-     */
     public function testFormatCategoryTreeFilterTryToFormatTreeWithEmptyBucketsKey(): void
     {
         // Arrange
@@ -274,9 +259,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatCategoryTreeFilterTryToFormatTreeWithoutMandatoryKeyOrDocCount(): void
     {
         // Arrange
@@ -308,9 +290,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatSearchHttpCategoryTreeFilterFormatsSearchHttpCategoryTree(): void
     {
         // Arrange
@@ -345,9 +324,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatSearchHttpCategoryTreeFilterTryToFormatTreeWhenSearchResultsHasNoAggregationByCategory(): void
     {
         // Arrange
@@ -382,9 +358,6 @@ class FormatCategoryTreeFilterTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testFormatSearchHttpCategoryTreeFilterTryToFormatTreeWhenCategoryNodeStoragesAreEmpty(): void
     {
         // Arrange
@@ -451,9 +424,6 @@ class FormatCategoryTreeFilterTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testFormatEmptySuggestionsSearchHttpCategory(): void
     {
         // Arrange
@@ -515,11 +485,6 @@ class FormatCategoryTreeFilterTest extends Unit
         return $storageClientMock;
     }
 
-    /**
-     * @param bool $isEmpty
-     *
-     * @return \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStorageInterface
-     */
     protected function getStorageClientMockWithDeepCategoryNodes(bool $isEmpty = false): CategoryStorageToStorageInterface
     {
         $categoryNodeStorageTransfers = [
@@ -574,9 +539,6 @@ class FormatCategoryTreeFilterTest extends Unit
         return $storageClientMock;
     }
 
-    /**
-     * @return array
-     */
     protected function getAggregationResult(): array
     {
         return [
@@ -588,9 +550,6 @@ class FormatCategoryTreeFilterTest extends Unit
         ];
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SearchHttpResponseTransfer
-     */
     protected function getSearchHttpResults(): SearchHttpResponseTransfer
     {
         return (new SearchHttpResponseTransfer())
@@ -605,9 +564,6 @@ class FormatCategoryTreeFilterTest extends Unit
             );
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SuggestionsSearchHttpResponseTransfer
-     */
     protected function getSuggestionsSearchHttpResults(): SuggestionsSearchHttpResponseTransfer
     {
         return (new SuggestionsSearchHttpResponseTransfer())
@@ -655,17 +611,11 @@ class FormatCategoryTreeFilterTest extends Unit
         ];
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SuggestionsSearchHttpResponseTransfer
-     */
     protected function getEmptySuggestionsSearchHttpResults(): SuggestionsSearchHttpResponseTransfer
     {
         return (new SuggestionsSearchHttpResponseTransfer());
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SearchHttpResponseTransfer
-     */
     protected function getEmptySearchHttpResults(): SearchHttpResponseTransfer
     {
         return (new SearchHttpResponseTransfer())->setFacets([]);

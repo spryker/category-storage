@@ -44,10 +44,6 @@ class CategoryTreeFilterFormatter implements CategoryTreeFilterFormatterInterfac
      */
     protected $categoryNodeStorageMapper;
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Storage\CategoryTreeStorageReaderInterface $categoryTreeStorageReader
-     * @param \Spryker\Client\CategoryStorage\Mapper\CategoryNodeStorageMapperInterface $categoryNodeStorageMapper
-     */
     public function __construct(
         CategoryTreeStorageReaderInterface $categoryTreeStorageReader,
         CategoryNodeStorageMapperInterface $categoryNodeStorageMapper

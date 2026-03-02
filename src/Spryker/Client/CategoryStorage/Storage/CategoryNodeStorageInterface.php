@@ -11,13 +11,6 @@ use Generated\Shared\Transfer\CategoryNodeStorageTransfer;
 
 interface CategoryNodeStorageInterface
 {
-    /**
-     * @param int $idCategoryNode
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer
-     */
     public function getCategoryNodeById(int $idCategoryNode, string $localeName, string $storeName): CategoryNodeStorageTransfer;
 
     /**

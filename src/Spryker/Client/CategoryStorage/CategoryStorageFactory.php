@@ -34,9 +34,6 @@ use Spryker\Client\Kernel\AbstractFactory;
  */
 class CategoryStorageFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\CategoryStorage\Formatter\CategoryTreeFilterFormatterInterface
-     */
     public function createCategoryTreeFilterFormatter(): CategoryTreeFilterFormatterInterface
     {
         return new CategoryTreeFilterFormatter(
@@ -45,9 +42,6 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Storage\CategoryTreeStorageReaderInterface
-     */
     public function createCategoryTreeStorageReader(): CategoryTreeStorageReaderInterface
     {
         return new CategoryTreeStorageReader(
@@ -56,17 +50,11 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Mapper\CategoryNodeStorageMapperInterface
-     */
     public function createCategoryNodeStorageMapper(): CategoryNodeStorageMapperInterface
     {
         return new CategoryNodeStorageMapper();
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Storage\CategoryNodeStorageInterface
-     */
     public function createCategoryNodeStorage(): CategoryNodeStorageInterface
     {
         return new CategoryNodeStorage(
@@ -75,9 +63,6 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Mapper\UrlStorageCategoryNodeMapperInterface
-     */
     public function createUrlStorageCategoryNodeMapper(): UrlStorageCategoryNodeMapperInterface
     {
         return new UrlStorageCategoryNodeMapper(
@@ -87,9 +72,6 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Expander\ProductCategoryStorageExpanderInterface
-     */
     public function createProductCategoryStorageExpander(): ProductCategoryStorageExpanderInterface
     {
         return new ProductCategoryStorageExpander(
@@ -97,41 +79,26 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStorageInterface
-     */
     protected function getStorageClient(): CategoryStorageToStorageInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::CLIENT_STORAGE);
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToLocaleClientInterface
-     */
     public function getLocaleClient(): CategoryStorageToLocaleClientInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::CLIENT_LOCALE);
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStoreClientInterface
-     */
     public function getStoreClient(): CategoryStorageToStoreClientInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::CLIENT_STORE);
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Dependency\Service\CategoryStorageToSynchronizationServiceInterface
-     */
     public function getSynchronizationService(): CategoryStorageToSynchronizationServiceInterface
     {
         return $this->getProvidedDependency(CategoryStorageDependencyProvider::SERVICE_SYNCHRONIZATION);
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Formatter\CategoryTreeSearchHttpFormatterInterface
-     */
     public function createCategoryTreeSearchHttpFormatter(): CategoryTreeSearchHttpFormatterInterface
     {
         return new CategoryTreeSearchHttpFormatter(
@@ -142,9 +109,6 @@ class CategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\CategoryStorage\Formatter\CategorySuggestionsSearchHttpFormatterInterface
-     */
     public function createCategorySuggestionsSearchHttpFormatter(): CategorySuggestionsSearchHttpFormatterInterface
     {
         return new CategorySuggestionsSearchHttpFormatter(

@@ -23,10 +23,6 @@ class CategoryNodeStorageByCategoryEventsDeleter implements CategoryNodeStorageB
      */
     protected $categoryNodeStorageDeleter;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade
-     * @param \Spryker\Zed\CategoryStorage\Business\Deleter\CategoryNodeStorageDeleterInterface $categoryNodeStorageDeleter
-     */
     public function __construct(
         CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade,
         CategoryNodeStorageDeleterInterface $categoryNodeStorageDeleter

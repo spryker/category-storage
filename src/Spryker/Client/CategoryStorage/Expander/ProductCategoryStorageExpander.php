@@ -18,21 +18,11 @@ class ProductCategoryStorageExpander implements ProductCategoryStorageExpanderIn
      */
     protected CategoryNodeStorageInterface $categoryNodeStorage;
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Storage\CategoryNodeStorageInterface $categoryNodeStorage
-     */
     public function __construct(CategoryNodeStorageInterface $categoryNodeStorage)
     {
         $this->categoryNodeStorage = $categoryNodeStorage;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer
-     */
     public function expandProductCategoriesWithParentIds(
         ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer,
         string $localeName,

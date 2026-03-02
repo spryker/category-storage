@@ -74,9 +74,6 @@ class CategoryStorageFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -84,9 +81,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->tester->addDependencies();
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryStorePublishEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -100,9 +94,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryStorePublishEventsWillWriteStorageDataWithZeroOrderProperty(): void
     {
         // Arrange
@@ -124,9 +115,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryStoreEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -143,9 +131,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryTreeStorageCollectionWillWriteStorageData(): void
     {
         // Arrange
@@ -165,9 +150,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertCount($expectedCount, $categoryTreeStorageEntities, sprintf('Exactly %d category tree should exist.', $expectedCount));
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCategoryTreeStorageCollectionWillDeleteCategoryTreeStorageData(): void
     {
         // Arrange
@@ -184,9 +166,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertEquals(0, $categoryTreeStorageEntityCount, 'Category tree storage table should be empty.');
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryAttributeEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -203,9 +182,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -220,9 +196,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryTemplateEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -242,9 +215,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByParentCategoryEventsWithoutParentWillWriteStorageData(): void
     {
         // Arrange
@@ -261,9 +231,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByParentCategoryEventsWithOriginalParentWillWriteStorageData(): void
     {
         // Arrange
@@ -288,9 +255,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($originalParentCategoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryNodeEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -307,9 +271,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageWriterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCategoryNodeStorageCollectionByCategoryNodeEventsWillNotWriteInactiveStorageData(): void
     {
         // Arrange
@@ -328,9 +289,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageDeleterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCategoryNodeStorageCollectionByCategoryEventsWillDeleteCategoryStorageData(): void
     {
         // Arrange
@@ -346,9 +304,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageDeleterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCategoryNodeStorageCollectionByCategoryAttributeEventsWillDeleteCategoryStorageData(): void
     {
         // Arrange
@@ -366,9 +321,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageDeleterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCategoryNodeStorageCollectionByCategoryTemplateEventsWillDeleteCategoryStorageData(): void
     {
         // Arrange
@@ -390,9 +342,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageDeleterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCategoryNodeStorageCollectionByCategoryNodeEventsWillDeleteCategoryStorageData(): void
     {
         // Arrange
@@ -408,9 +357,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->executeCategoryNodeStorageDeleterAsserts($categoryTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetCategoryNodeStorageSynchronizationDataTransfersByCategoryNodeIdsWillReturnCategoryStorageDataFilteredByIds(): void
     {
         // Arrange
@@ -434,9 +380,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertSame([$categoryNodeId], $categoryNodeIds, 'Synchronization data should be filtered by category node IDs.');
     }
 
-    /**
-     * @return void
-     */
     public function testGetCategoryNodeStorageSynchronizationDataTransfersByCategoryNodeIdsWillReturnCategoryStorageDataByLimit(): void
     {
         // Arrange
@@ -456,9 +399,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertCount($expectedCount, $synchronizationDataTransfers, sprintf('Exactly %d category nodes should exist.', $expectedCount));
     }
 
-    /**
-     * @return void
-     */
     public function testGetCategoryTreeStorageSynchronizationDataTransfersByCategoryTreeStorageIdsWillReturnCategoryTreeStorageDataFilteredByIds(): void
     {
         // Arrange
@@ -477,9 +417,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertCount($expectedCount, $synchronizationDataTransfers, sprintf('Exactly %d category trees should be found.', $expectedCount));
     }
 
-    /**
-     * @return void
-     */
     public function testGetCategoryTreeStorageSynchronizationDataTransfersByCategoryTreeStorageIdsWillReturnCategoryTreeStorageDataByLimit(): void
     {
         // Arrange
@@ -497,11 +434,6 @@ class CategoryStorageFacadeTest extends Unit
         $this->assertCount($expectedCount, $synchronizationDataTransfers, sprintf('Exactly %d category trees should be found.', $expectedCount));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     *
-     * @return void
-     */
     protected function executeCategoryNodeStorageWriterAsserts(CategoryTransfer $categoryTransfer): void
     {
         $categoryNodeStorageEntity = $this->tester->findCategoryNodeStorageEntityByLocalizedCategoryAndStoreName($categoryTransfer, static::STORE_NAME_DE);
@@ -524,11 +456,6 @@ class CategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     *
-     * @return void
-     */
     protected function executeCategoryNodeStorageDeleterAsserts(CategoryTransfer $categoryTransfer): void
     {
         $categoryNodeStorageEntity = $this->tester->findCategoryNodeStorageEntityByLocalizedCategoryAndStoreName($categoryTransfer, static::STORE_NAME_DE);

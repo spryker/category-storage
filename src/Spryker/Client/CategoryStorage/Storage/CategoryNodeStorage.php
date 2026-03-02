@@ -32,23 +32,12 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
      */
     protected static $categoryNodeDataCache = [];
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStorageInterface $storageClient
-     * @param \Spryker\Client\CategoryStorage\Dependency\Service\CategoryStorageToSynchronizationServiceInterface $synchronizationService
-     */
     public function __construct(CategoryStorageToStorageInterface $storageClient, CategoryStorageToSynchronizationServiceInterface $synchronizationService)
     {
         $this->storageClient = $storageClient;
         $this->synchronizationService = $synchronizationService;
     }
 
-    /**
-     * @param int $idCategoryNode
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer
-     */
     public function getCategoryNodeById(int $idCategoryNode, string $localeName, string $storeName): CategoryNodeStorageTransfer
     {
         $categoryData = $this->getStorageData($idCategoryNode, $localeName, $storeName);
@@ -97,13 +86,6 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
         return $this->getCategoryNodeStorageTransfersIndexedByNodeId($categoryNodeStorageTransfers);
     }
 
-    /**
-     * @param string $categoryNodeStorageData
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\CategoryNodeStorageTransfer|null
-     */
     protected function mapCategoryNodeStorageDataToCategoryNodeStorageTransfer(
         string $categoryNodeStorageData,
         string $localeName,
@@ -204,11 +186,6 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
         return $collectorData;
     }
 
-    /**
-     * @param array $categories
-     *
-     * @return array
-     */
     protected function filterCollectorDataRecursive(array $categories): array
     {
         $filteredCategories = [];
@@ -231,13 +208,6 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
         return $filteredCategories;
     }
 
-    /**
-     * @param int $idCategoryNode
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return string
-     */
     protected function generateKey(int $idCategoryNode, string $localeName, string $storeName): string
     {
         $synchronizationDataTransfer = (new SynchronizationDataTransfer())
@@ -250,14 +220,6 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
             ->generateKey($synchronizationDataTransfer);
     }
 
-    /**
-     * @param int $idCategoryNode
-     * @param string $localeName
-     * @param string $storeName
-     * @param \Generated\Shared\Transfer\CategoryNodeStorageTransfer|null $categoryNodeStorageTransfer
-     *
-     * @return void
-     */
     protected function cacheCategoryNodeDataByIdCategoryNodeAndLocaleName(
         int $idCategoryNode,
         string $localeName,
@@ -288,13 +250,6 @@ class CategoryNodeStorage implements CategoryNodeStorageInterface
         return static::$categoryNodeDataCache[$idCategoryNode][$localeName][$storeName];
     }
 
-    /**
-     * @param int $idCategoryNode
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return bool
-     */
     protected function hasCategoryNodeDataCacheByIdCategoryNodeAndLocaleNameAndStoreName(int $idCategoryNode, string $localeName, string $storeName): bool
     {
         return isset(static::$categoryNodeDataCache[$idCategoryNode][$localeName][$storeName]);

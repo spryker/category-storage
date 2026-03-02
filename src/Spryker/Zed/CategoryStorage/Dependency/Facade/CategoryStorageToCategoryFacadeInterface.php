@@ -12,19 +12,9 @@ use Generated\Shared\Transfer\NodeCollectionTransfer;
 
 interface CategoryStorageToCategoryFacadeInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeCollectionTransfer
-     */
     public function getCategoryNodesWithRelativeNodes(
         CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
     ): NodeCollectionTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeCollectionTransfer
-     */
     public function getCategoryNodes(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): NodeCollectionTransfer;
 }

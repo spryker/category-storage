@@ -42,12 +42,6 @@ class CategoryTreeSearchHttpFormatter implements CategoryTreeSearchHttpFormatter
      */
     protected CategoryStorageToStoreClientInterface $storeClient;
 
-    /**
-     * @param \Spryker\Client\CategoryStorage\Storage\CategoryTreeStorageReaderInterface $categoryTreeStorageReader
-     * @param \Spryker\Client\CategoryStorage\Mapper\CategoryNodeStorageMapperInterface $categoryNodeStorageMapper
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToLocaleClientInterface $localeClient
-     * @param \Spryker\Client\CategoryStorage\Dependency\Client\CategoryStorageToStoreClientInterface $storeClient
-     */
     public function __construct(
         CategoryTreeStorageReaderInterface $categoryTreeStorageReader,
         CategoryNodeStorageMapperInterface $categoryNodeStorageMapper,

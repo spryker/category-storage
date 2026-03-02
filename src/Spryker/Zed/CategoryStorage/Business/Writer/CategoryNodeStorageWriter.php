@@ -48,14 +48,6 @@ class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
      */
     protected $categoryNodeExtractor;
 
-    /**
-     * @param \Spryker\Zed\CategoryStorage\Persistence\CategoryStorageEntityManagerInterface $categoryStorageEntityManager
-     * @param \Spryker\Zed\CategoryStorage\Business\TreeBuilder\CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToCategoryFacadeInterface $categoryFacade
-     * @param \Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade
-     * @param \Spryker\Zed\CategoryStorage\Business\Deleter\CategoryNodeStorageDeleterInterface $categoryNodeStorageDeleter
-     * @param \Spryker\Zed\CategoryStorage\Business\Extractor\CategoryNodeExtractorInterface $categoryNodeExtractor
-     */
     public function __construct(
         CategoryStorageEntityManagerInterface $categoryStorageEntityManager,
         CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder,
@@ -130,11 +122,6 @@ class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
         $this->writeCategoryNodeStorageCollection($categoryNodeIds);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return void
-     */
     public function writeCategoryNodeStorageCollectionByCategoryNodeCriteria(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): void
     {
         $nodeCollectionTransfer = $this->categoryFacade->getCategoryNodes($categoryNodeCriteriaTransfer);
