@@ -58,6 +58,7 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
             $this->getEventBehaviorFacade(),
             $this->createCategoryNodeStorageDeleter(),
             $this->createCategoryNodeExtractor(),
+            $this->getStoreFacade(),
         );
     }
 
@@ -68,6 +69,7 @@ class CategoryStorageBusinessFactory extends AbstractBusinessFactory
             $this->createCategoryStorageNodeTreeBuilder(),
             $this->getCategoryFacade(),
             $this->createCategoryNodeExtractor(),
+            $this->getStoreFacade(),
         );
     }
 

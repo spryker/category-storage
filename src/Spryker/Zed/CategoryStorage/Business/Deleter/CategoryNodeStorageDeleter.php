@@ -92,7 +92,7 @@ class CategoryNodeStorageDeleter implements CategoryNodeStorageDeleterInterface
      *
      * @return void
      */
-    protected function deleteMissingCategoryNodeStorageForLocaleAndStore(
+    public function deleteMissingCategoryNodeStorageForLocaleAndStore(
         array $categoryNodeIds,
         array $categoryNodeStorageTransfers,
         string $localeName,

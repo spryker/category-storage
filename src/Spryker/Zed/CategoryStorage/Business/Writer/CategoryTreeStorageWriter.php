@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\CategoryTreeStorageTransfer;
 use Spryker\Zed\CategoryStorage\Business\Extractor\CategoryNodeExtractorInterface;
 use Spryker\Zed\CategoryStorage\Business\TreeBuilder\CategoryStorageNodeTreeBuilderInterface;
 use Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToCategoryFacadeInterface;
+use Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToStoreFacadeInterface;
 use Spryker\Zed\CategoryStorage\Persistence\CategoryStorageEntityManagerInterface;
 
 class CategoryTreeStorageWriter implements CategoryTreeStorageWriterInterface
@@ -37,35 +38,58 @@ class CategoryTreeStorageWriter implements CategoryTreeStorageWriterInterface
      */
     protected $categoryNodeExtractor;
 
+    protected CategoryStorageToStoreFacadeInterface $storeFacade;
+
     public function __construct(
         CategoryStorageEntityManagerInterface $categoryStorageEntityManager,
         CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder,
         CategoryStorageToCategoryFacadeInterface $categoryFacade,
-        CategoryNodeExtractorInterface $categoryNodeExtractor
+        CategoryNodeExtractorInterface $categoryNodeExtractor,
+        CategoryStorageToStoreFacadeInterface $storeFacade
     ) {
         $this->categoryStorageEntityManager = $categoryStorageEntityManager;
         $this->categoryStorageNodeTreeBuilder = $categoryStorageNodeTreeBuilder;
         $this->categoryFacade = $categoryFacade;
         $this->categoryNodeExtractor = $categoryNodeExtractor;
+        $this->storeFacade = $storeFacade;
     }
 
     public function writeCategoryTreeStorageCollection(): void
     {
-        $categoryTrees = $this->getCategoryNodeStorageTransferTrees();
+        $localeNameMapByStoreName = $this->getLocaleNameMapByStoreName();
 
-        $this->storeData($categoryTrees);
-    }
+        $categoryNodeCriteriaTransfer = (new CategoryNodeCriteriaTransfer())
+            ->setIsRoot(true)
+            ->setWithRelations(true);
 
-    /**
-     * @param array<array<array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>>> $categoryNodeStorageTransferTreesIndexedByStoreAndLocale
-     *
-     * @return void
-     */
-    protected function storeData(array $categoryNodeStorageTransferTreesIndexedByStoreAndLocale): void
-    {
-        foreach ($categoryNodeStorageTransferTreesIndexedByStoreAndLocale as $storeName => $categoryNodeStorageTransferTreesIndexedByLocale) {
-            foreach ($categoryNodeStorageTransferTreesIndexedByLocale as $localeName => $categoryNodeStorageTransferTrees) {
-                $this->storeDataSet($categoryNodeStorageTransferTrees, $storeName, $localeName);
+        $nodeCollectionTransfer = $this->categoryFacade->getCategoryNodes($categoryNodeCriteriaTransfer);
+
+        if (!$nodeCollectionTransfer->getNodes()->count()) {
+            return;
+        }
+
+        $categoryNodeIds = $this->categoryNodeExtractor->extractCategoryNodeIdsFromNodeCollection($nodeCollectionTransfer);
+
+        $categoryNodeCriteriaTransfer = (new CategoryNodeCriteriaTransfer())
+            ->setIsActive(true)
+            ->setIsInMenu(true)
+            ->setCategoryNodeIds($categoryNodeIds);
+
+        $categoryNodeTransfers = $this->categoryFacade
+            ->getCategoryNodesWithRelativeNodes($categoryNodeCriteriaTransfer)
+            ->getNodes()
+            ->getArrayCopy();
+
+        foreach ($localeNameMapByStoreName as $storeName => $localeNames) {
+            foreach ($localeNames as $localeName) {
+                $categoryNodeStorageTransfers = $this->categoryStorageNodeTreeBuilder->buildCategoryNodeStorageTransfer(
+                    $categoryNodeIds,
+                    $categoryNodeTransfers,
+                    $storeName,
+                    $localeName,
+                );
+
+                $this->storeDataSet($categoryNodeStorageTransfers, $storeName, $localeName);
             }
         }
     }
@@ -97,35 +121,15 @@ class CategoryTreeStorageWriter implements CategoryTreeStorageWriterInterface
     }
 
     /**
-     * @return array<array<array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>>>
+     * @return array<string, array<string>>
      */
-    protected function getCategoryNodeStorageTransferTrees(): array
+    protected function getLocaleNameMapByStoreName(): array
     {
-        $categoryNodeCriteriaTransfer = (new CategoryNodeCriteriaTransfer())
-            ->setIsRoot(true)
-            ->setWithRelations(true);
-
-        $nodeCollectionTransfer = $this->categoryFacade->getCategoryNodes($categoryNodeCriteriaTransfer);
-
-        if (!$nodeCollectionTransfer->getNodes()->count()) {
-            return [];
+        $localeNameMapByStoreName = [];
+        foreach ($this->storeFacade->getAllStores() as $storeTransfer) {
+            $localeNameMapByStoreName[$storeTransfer->getName()] = $storeTransfer->getAvailableLocaleIsoCodes();
         }
 
-        $categoryNodeIds = $this->categoryNodeExtractor->extractCategoryNodeIdsFromNodeCollection($nodeCollectionTransfer);
-
-        $categoryNodeCriteriaTransfer = (new CategoryNodeCriteriaTransfer())
-            ->setIsActive(true)
-            ->setIsInMenu(true)
-            ->setCategoryNodeIds($categoryNodeIds);
-
-        $categoryNodeTransfers = $this->categoryFacade
-            ->getCategoryNodesWithRelativeNodes($categoryNodeCriteriaTransfer)
-            ->getNodes()
-            ->getArrayCopy();
-
-        return $this->categoryStorageNodeTreeBuilder->buildCategoryNodeStorageTransferTreesForLocaleAndStore(
-            $categoryNodeIds,
-            $categoryNodeTransfers,
-        );
+        return $localeNameMapByStoreName;
     }
 }

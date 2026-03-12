@@ -14,6 +14,7 @@ use Spryker\Zed\CategoryStorage\Business\Extractor\CategoryNodeExtractorInterfac
 use Spryker\Zed\CategoryStorage\Business\TreeBuilder\CategoryStorageNodeTreeBuilderInterface;
 use Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToCategoryFacadeInterface;
 use Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToEventBehaviorFacadeInterface;
+use Spryker\Zed\CategoryStorage\Dependency\Facade\CategoryStorageToStoreFacadeInterface;
 use Spryker\Zed\CategoryStorage\Persistence\CategoryStorageEntityManagerInterface;
 
 class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
@@ -48,13 +49,16 @@ class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
      */
     protected $categoryNodeExtractor;
 
+    protected CategoryStorageToStoreFacadeInterface $storeFacade;
+
     public function __construct(
         CategoryStorageEntityManagerInterface $categoryStorageEntityManager,
         CategoryStorageNodeTreeBuilderInterface $categoryStorageNodeTreeBuilder,
         CategoryStorageToCategoryFacadeInterface $categoryFacade,
         CategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade,
         CategoryNodeStorageDeleterInterface $categoryNodeStorageDeleter,
-        CategoryNodeExtractorInterface $categoryNodeExtractor
+        CategoryNodeExtractorInterface $categoryNodeExtractor,
+        CategoryStorageToStoreFacadeInterface $storeFacade
     ) {
         $this->categoryStorageEntityManager = $categoryStorageEntityManager;
         $this->categoryStorageNodeTreeBuilder = $categoryStorageNodeTreeBuilder;
@@ -62,6 +66,7 @@ class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
         $this->eventBehaviorFacade = $eventBehaviorFacade;
         $this->categoryNodeStorageDeleter = $categoryNodeStorageDeleter;
         $this->categoryNodeExtractor = $categoryNodeExtractor;
+        $this->storeFacade = $storeFacade;
     }
 
     /**
@@ -76,14 +81,39 @@ class CategoryNodeStorageWriter implements CategoryNodeStorageWriterInterface
             ->getNodes()
             ->getArrayCopy();
 
-        $categoryNodeStorageTransferTreesIndexedByLocaleAndStore = $this->categoryStorageNodeTreeBuilder
-            ->buildCategoryNodeStorageTransferTreesForLocaleAndStore(
-                $categoryNodeIds,
-                $nodeTransfers,
-            );
+        $localeNameMapByStoreName = $this->getLocaleNameMapByStoreName();
+        foreach ($localeNameMapByStoreName as $storeName => $localeNames) {
+            foreach ($localeNames as $localeName) {
+                $categoryNodeStorageTransferTrees = $this->categoryStorageNodeTreeBuilder
+                    ->buildCategoryNodeStorageTransfer(
+                        $categoryNodeIds,
+                        $nodeTransfers,
+                        $storeName,
+                        $localeName,
+                    );
+                $this->storeCategoryNodeStorageTransferTreesForStoreAndLocale(
+                    $categoryNodeStorageTransferTrees,
+                    $storeName,
+                    $localeName,
+                );
 
-        $this->storeData($categoryNodeStorageTransferTreesIndexedByLocaleAndStore);
-        $this->categoryNodeStorageDeleter->deleteMissingCategoryNodeStorage($categoryNodeStorageTransferTreesIndexedByLocaleAndStore, $categoryNodeIds);
+                $this->categoryNodeStorageDeleter
+                    ->deleteMissingCategoryNodeStorageForLocaleAndStore($categoryNodeIds, $categoryNodeStorageTransferTrees, $localeName, $storeName);
+            }
+        }
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    protected function getLocaleNameMapByStoreName(): array
+    {
+        $localeNameMapByStoreName = [];
+        foreach ($this->storeFacade->getAllStores() as $storeTransfer) {
+            $localeNameMapByStoreName[$storeTransfer->getName()] = $storeTransfer->getAvailableLocaleIsoCodes();
+        }
+
+        return $localeNameMapByStoreName;
     }
 
     /**

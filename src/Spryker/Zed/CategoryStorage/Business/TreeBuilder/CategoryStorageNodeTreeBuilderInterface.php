@@ -12,8 +12,10 @@ interface CategoryStorageNodeTreeBuilderInterface
     /**
      * @param array<int> $categoryNodeIds
      * @param array<\Generated\Shared\Transfer\NodeTransfer> $nodeTransfers
+     * @param string $storeName
+     * @param string $localeName
      *
-     * @return array<array<array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>>>
+     * @return array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>
      */
-    public function buildCategoryNodeStorageTransferTreesForLocaleAndStore(array $categoryNodeIds, array $nodeTransfers): array;
+    public function buildCategoryNodeStorageTransfer(array $categoryNodeIds, array $nodeTransfers, string $storeName, string $localeName): array;
 }

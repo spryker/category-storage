@@ -23,6 +23,11 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
      */
     protected $categoryNodeStorageMapper;
 
+    /**
+     * @var array<int, array<int>>
+     */
+    protected array $childrenIndexCache = [];
+
     public function __construct(
         CategoryStorageToStoreFacadeInterface $storeFacade,
         CategoryNodeStorageMapperInterface $categoryNodeStorageMapper
@@ -34,32 +39,30 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
     /**
      * @param array<int> $categoryNodeIds
      * @param array<\Generated\Shared\Transfer\NodeTransfer> $nodeTransfers
+     * @param string $storeName
+     * @param string $localeName
      *
-     * @return array<array<array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>>>
+     * @return array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer>
      */
-    public function buildCategoryNodeStorageTransferTreesForLocaleAndStore(array $categoryNodeIds, array $nodeTransfers): array
+    public function buildCategoryNodeStorageTransfer(array $categoryNodeIds, array $nodeTransfers, string $storeName, string $localeName): array
     {
-        $localeNameMapByStoreName = $this->getLocaleNameMapByStoreName();
         $indexedNodeTransfers = $this->indexCategoryNodesByIdCategoryNode($nodeTransfers);
 
-        $categoryNodeStorageTransferTrees = [];
-        foreach ($localeNameMapByStoreName as $storeName => $localeNames) {
-            foreach ($localeNames as $localeName) {
-                $categoryNodeStorageTransfers = $this->categoryNodeStorageMapper->mapNodeTransfersToCategoryNodeStorageTransfersByLocaleAndStore(
-                    $indexedNodeTransfers,
-                    $localeName,
-                    $storeName,
-                );
-
-                $categoryNodeStorageTransferTrees[$storeName][$localeName] = $this->buildCategoryNodeStorageTransferTrees(
-                    $categoryNodeIds,
-                    $indexedNodeTransfers,
-                    $categoryNodeStorageTransfers,
-                );
-            }
+        if (!$this->childrenIndexCache) {
+            $this->childrenIndexCache = $this->buildChildrenIndex($indexedNodeTransfers);
         }
 
-        return $categoryNodeStorageTransferTrees;
+        $categoryNodeStorageTransfers = $this->categoryNodeStorageMapper->mapNodeTransfersToCategoryNodeStorageTransfersByLocaleAndStore(
+            $indexedNodeTransfers,
+            $localeName,
+            $storeName,
+        );
+
+        return $this->buildCategoryNodeStorageTransferTrees(
+            $categoryNodeIds,
+            $indexedNodeTransfers,
+            $categoryNodeStorageTransfers,
+        );
     }
 
     /**
@@ -76,6 +79,31 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
         }
 
         return $indexedNodeTransfers;
+    }
+
+    /**
+     * @param array<\Generated\Shared\Transfer\NodeTransfer> $indexedNodeTransfers
+     *
+     * @return array<int, array<int>>
+     */
+    protected function buildChildrenIndex(array $indexedNodeTransfers): array
+    {
+        $childrenIndex = [];
+
+        foreach ($indexedNodeTransfers as $nodeTransfer) {
+            $parentId = $nodeTransfer->getFkParentCategoryNode();
+            if ($parentId === null) {
+                continue;
+            }
+
+            if (!isset($childrenIndex[$parentId])) {
+                $childrenIndex[$parentId] = [];
+            }
+
+            $childrenIndex[$parentId][] = $nodeTransfer->getIdCategoryNodeOrFail();
+        }
+
+        return $childrenIndex;
     }
 
     /**
@@ -195,6 +223,8 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
     }
 
     /**
+     * Optimized O(1) lookup using pre-built children index instead of O(n) iteration.
+     *
      * @param int $idCategoryNode
      * @param array<\Generated\Shared\Transfer\NodeTransfer> $indexedNodeTransfers
      * @param array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer> $indexedCategoryNodeStorageTransfers
@@ -204,10 +234,13 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
     protected function findChildren(int $idCategoryNode, array $indexedNodeTransfers, array $indexedCategoryNodeStorageTransfers): array
     {
         $childrenCategoryNodeStorageTransfers = [];
-        foreach ($indexedNodeTransfers as $nodeTransfer) {
-            if ($idCategoryNode === $nodeTransfer->getFkParentCategoryNode() && isset($indexedCategoryNodeStorageTransfers[$nodeTransfer->getIdCategoryNode()])) {
+
+        $childNodeIds = $this->childrenIndexCache[$idCategoryNode] ?? [];
+
+        foreach ($childNodeIds as $childNodeId) {
+            if (isset($indexedCategoryNodeStorageTransfers[$childNodeId])) {
                 $childrenCategoryNodeStorageTransfers[] = $this->cloneCategoryNodeStorageTransfer(
-                    $indexedCategoryNodeStorageTransfers[$nodeTransfer->getIdCategoryNode()],
+                    $indexedCategoryNodeStorageTransfers[$childNodeId],
                 );
             }
         }
@@ -223,14 +256,11 @@ class CategoryStorageNodeTreeBuilder implements CategoryStorageNodeTreeBuilderIn
      */
     protected function findParents(int $idParentCategoryNode, array $indexedCategoryNodeStorageTransfers): array
     {
-        $parentCategoryNodeStorageTransfers = [];
-        foreach ($indexedCategoryNodeStorageTransfers as $idCategoryNode => $categoryNodeStorageTransfer) {
-            if ($idParentCategoryNode === $idCategoryNode) {
-                $parentCategoryNodeStorageTransfers[] = $this->cloneCategoryNodeStorageTransfer($categoryNodeStorageTransfer);
-            }
+        if (!isset($indexedCategoryNodeStorageTransfers[$idParentCategoryNode])) {
+            return [];
         }
 
-        return $parentCategoryNodeStorageTransfers;
+        return [$this->cloneCategoryNodeStorageTransfer($indexedCategoryNodeStorageTransfers[$idParentCategoryNode])];
     }
 
     protected function cloneCategoryNodeStorageTransfer(CategoryNodeStorageTransfer $categoryNodeStorageTransfer): CategoryNodeStorageTransfer

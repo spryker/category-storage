@@ -53,10 +53,11 @@ class CategoryTreeStorageMapper
         CategoryTreeStorageTransfer $categoryTreeStorageTransfer,
         SpyCategoryTreeStorage $categoryTreeStorageEntity
     ): SpyCategoryTreeStorage {
-        $categoryTreeStorageEntity->fromArray($categoryTreeStorageTransfer->toArray());
+        $storageArray = $categoryTreeStorageTransfer->toArray();
+        $categoryTreeStorageEntity->fromArray($storageArray);
         $categoryTreeStorageData = $this->utilSanitizeService->arrayFilterRecursive(
             array_intersect_key(
-                $categoryTreeStorageTransfer->modifiedToArray(),
+                $storageArray,
                 [static::KEY_CATEGORY_NODES_STORAGE => []],
             ),
         );

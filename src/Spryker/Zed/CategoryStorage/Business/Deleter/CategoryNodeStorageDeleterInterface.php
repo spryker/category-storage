@@ -34,4 +34,19 @@ interface CategoryNodeStorageDeleterInterface
     public function deleteCategoryNodeStorageCollectionByCategoryNodeEvents(array $eventEntityTransfers): void;
 
     public function deleteCategoryNodeStorageCollectionByCategoryNodeCriteria(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): void;
+
+    /**
+     * @param array<int> $categoryNodeIds
+     * @param array<\Generated\Shared\Transfer\CategoryNodeStorageTransfer> $categoryNodeStorageTransfers
+     * @param string $localeName
+     * @param string $storeName
+     *
+     * @return void
+     */
+    public function deleteMissingCategoryNodeStorageForLocaleAndStore(
+        array $categoryNodeIds,
+        array $categoryNodeStorageTransfers,
+        string $localeName,
+        string $storeName
+    ): void;
 }
