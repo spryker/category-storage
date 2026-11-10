@@ -7,9 +7,9 @@
 
 namespace Spryker\Shared\CategoryStorage;
 
-use Spryker\Shared\Kernel\AbstractBundleConfig;
+use Spryker\Shared\Kernel\AbstractSharedConfig;
 
-class CategoryStorageConfig extends AbstractBundleConfig
+class CategoryStorageConfig extends AbstractSharedConfig
 {
     /**
      * Specification:
