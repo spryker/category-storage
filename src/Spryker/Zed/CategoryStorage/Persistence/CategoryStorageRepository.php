@@ -104,7 +104,6 @@ class CategoryStorageRepository extends AbstractRepository implements CategorySt
             ->orderByIdCategoryNodeStorage()
             ->limit($limit)
             ->offset($offset);
-        $sitemapUrlTransfers = [];
         $categoryNodeStorageMapper = $this->getFactory()->createCategoryNodeStorageMapper();
 
         do {
